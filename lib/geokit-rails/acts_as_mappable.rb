@@ -110,7 +110,7 @@ module Geokit
         # Add bounding box to speed up SQL request.
         bounds = formulate_bounds_from_distance(
           options,
-          normalize_point_to_lat_lng(options[:origin]), 
+          normalize_point_to_lat_lng(options[:origin]),
           options[:units] || default_units)
         with_latlng.where(bound_conditions(bounds)).
           where(distance_conditions(options))
@@ -339,7 +339,9 @@ module Geokit
       def flat_distance_sql(origin, units)
         lat_degree_units = units_per_latitude_degree(units)
         lng_degree_units = units_per_longitude_degree(get_lat(origin), units)
-        adapter.flat_distance_sql(origin, lat_degree_units, lng_degree_units)
+        lat = get_lat(origin)
+        lng = get_lng(origin)
+        adapter.flat_distance_sql(lat, lng, lat_degree_units, lng_degree_units)
       end
 
       def get_lat(origin)

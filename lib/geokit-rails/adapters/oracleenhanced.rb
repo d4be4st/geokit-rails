@@ -19,11 +19,11 @@ module Geokit
 }
       end
 
-      def flat_distance_sql(origin, lat_degree_units, lng_degree_units)
+      def flat_distance_sql(lat, lng, lat_degree_units, lng_degree_units)
         %{
 SQRT(
-  POWER(#{lat_degree_units}*(#{origin.lat}-#{qualified_lat_column_name}), 2)
-  POWER(#{lng_degree_units}*(#{origin.lng}-#{qualified_lng_column_name}), 2)
+  POWER(#{lat_degree_units}*(#{lat}-#{qualified_lat_column_name}), 2)
+  POWER(#{lng_degree_units}*(#{lng}-#{qualified_lng_column_name}), 2)
 )
          }
       end
